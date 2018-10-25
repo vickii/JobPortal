@@ -1,0 +1,31 @@
+version: '3.7'
+services:
+  Kafka:
+    image: spotify/kafka
+    hostname: kafka.local
+    network_mode: bridge
+    environment:
+      - ADVERTISED_HOST=${KAFKA_HOST_IP}
+      - ADVERTISED_PORT=9092
+    ports:
+      - "0.0.0.0:2181:2181"
+      - "0.0.0.0:9092:9092"
+    restart: always
+  Mysql:
+    image: vickyramesh/mysql-jobportal
+    hostname: mysql-jobportal.local
+    network_mode: bridge
+    ports:
+      - "0.0.0.0:3306:3306"
+    depends_on:
+      - Kafka
+    restart: always
+  Job_Portal:
+    image: vickyramesh/jobportal:app-jobportal
+    hostname: app-jobportal.local
+    network_mode: bridge
+    depends_on:
+      - Mysql
+    ports:
+      - "0.0.0.0:8050:8050"
+    restart: always
