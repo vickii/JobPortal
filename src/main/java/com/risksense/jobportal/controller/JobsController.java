@@ -38,7 +38,7 @@ public class JobsController {
 
     @PostMapping(value = "/job", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<Job> createJob(@Valid @RequestBody Job job) {
+    public ResponseEntity<Job> createJob(@RequestBody @Valid Job job) {
         return ResponseEntity.ok(jobService.createJob(job));
     }
 

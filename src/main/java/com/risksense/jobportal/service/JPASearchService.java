@@ -20,8 +20,6 @@ import org.springframework.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Expression;
@@ -41,9 +39,8 @@ public class JPASearchService implements SearchService {
 
     private final RepoHelper repoHelper;
 
-    @PersistenceContext
-    private EntityManager entityManager;
 
+    //@Transactional
     public List<Job> searchJob(SearchJobRequest qry) {
         return qry != null ? repoHelper.findAllJobs(new Specification<Job>() {
             @Override

@@ -1,14 +1,17 @@
 package com.risksense.jobportal.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity(name = "Company")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Company {
 
     public Company() {
@@ -24,6 +27,7 @@ public class Company {
     private String name;
 
     @NotBlank(message = "company city is compulsory")
+    @NotNull(message = "company city is compulsory")
 
     private String city;
 

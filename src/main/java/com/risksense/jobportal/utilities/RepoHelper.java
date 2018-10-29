@@ -10,12 +10,14 @@ import com.risksense.jobportal.repositories.SkillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import javax.transaction.Transactional;
 
 @Component
 public class RepoHelper {
@@ -32,7 +34,7 @@ public class RepoHelper {
         this.skillRepository = skillRepository;
     }
 
-    @Transactional
+    @javax.transaction.Transactional
     public Job save(final Job job) {
         Company companyFromDB = companyRepository.findFirstByNameAndCityAndStateAndZipCodeAndCountry(job.getCompany().getName(), job.getCompany().getCity(), job.getCompany().getState(), job.getCompany().getZipCode(), job.getCompany().getCountry());
         if (companyFromDB != null) {

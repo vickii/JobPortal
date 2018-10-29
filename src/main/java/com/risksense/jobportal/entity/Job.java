@@ -2,6 +2,7 @@ package com.risksense.jobportal.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -20,6 +21,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -41,14 +43,15 @@ public class Job {
     private String title;
 
     @NotNull(message = "company cannot be null")
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
+    @Valid
     private Company company;
 
     @Min(value = 1, message = "Salary should not be less than 1")
     private Long salary;
 
-    @ManyToMany(fetch = FetchType.EAGER,
+    @ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                     CascadeType.PERSIST,
                     CascadeType.MERGE
@@ -56,9 +59,11 @@ public class Job {
     @JoinTable(name = "job_skill",
             joinColumns = {@JoinColumn(name = "job_id")},
             inverseJoinColumns = {@JoinColumn(name = "skill_id")})
+    @Valid
     private Set<Skill> skill = new HashSet<>();
 
     @Column(name = "detailedDescription", columnDefinition = "TEXT")
+    @NotBlank(message = "description is compulsory")
     private String description;
 
     @NotNull(message = "experience does not match with the enumeration")
