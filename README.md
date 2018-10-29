@@ -76,7 +76,7 @@ This endpoint is used to creates a job
 
 ### Bulk Job Upload :
 
-#### URL : http://localhost:8050/bulkjob
+#### URL : http://hostname:8050/bulkjob
 
 Please find the sample csv file (BulkUploadTestFile.csv) in test/resources folder
 
@@ -86,7 +86,7 @@ Value : File(choose file)
 
 ### Search Job :
 
-##### URL : http://localhost:8050/search/job
+##### URL : http://hostname:8050/search/job
 
 
 This endpoint is for job search.
